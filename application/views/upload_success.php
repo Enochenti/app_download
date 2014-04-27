@@ -18,5 +18,6 @@
             <?php endforeach;?>
         </ul>
         <p><?php echo anchor('upload','Upload Another File!');?></p>
+        <p><?php echo anchor('download','go to the download list!');?></p>
     </body>
 </html>

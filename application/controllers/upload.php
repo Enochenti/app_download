@@ -16,8 +16,11 @@ class Upload extends CI_Controller{
     }
     
     function do_upload(){
-        $config['upload_path']='./uploads/';
-        $config['allowed_types']='git|jpg|png|apk';
+        $file=$this->input->post('userfile');
+        $extension=substr(strrchr($file,'.'),1);
+       // if ($extension=='apk')
+            $config['upload_path']='./uploads/android/';
+        $config['allowed_types']='apk';
         $config['max_size']='0';
         $config['max_width']='1024';
         $config['max_height']='768';
@@ -30,9 +33,10 @@ class Upload extends CI_Controller{
         }else{
             $message= $this->upload->data();
             $data=array('upload_data'=>$message);
-            $this->file_model->insert_file($message['file_name']);
+            $this->file_model->insert_file($message['file_name'],$message['full_path']);
             $this->load->view('upload_success',$data);
         }
     }
+    
 }
 ?>

@@ -25,5 +25,14 @@ class download extends CI_Controller{
         
         force_download($name,$data);
     }
+    
+    function delete($id){
+        $item=$this->file_model->get_a_file($id);
+        if (!empty($item)){
+            $this->file_model->delete_file($id);
+            @unlink($item->file_path);
+            $this->index();
+        }
+    }
 }
 ?>

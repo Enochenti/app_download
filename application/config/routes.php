@@ -39,6 +39,7 @@
 */
 $route['download']='download';
 $route['download/(:num)']='download/download_file/$1';
+$route['delete/(:num)']='download/delete/$1';
 $route['default_controller'] = "upload";
 $route['404_override'] = '';
 

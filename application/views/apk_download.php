@@ -13,7 +13,7 @@
     </head>
     <body>
         <?php foreach ($list as $item):?>
-        <a href="<?php echo 'http://localhost:8080/CodeIgniter/index.php/download/'.$item->id;?>"><?php echo $item->file;?></a>
+        <a href="<?php echo 'http://localhost:8080/CodeIgniter/index.php/download/'.$item->id;?>"><?php echo $item->file;?></a><a href="<?php echo 'http://localhost:8080/CodeIgniter/index.php/delete/'.$item->id;?>">        delete</a><br/>
         <?php endforeach;?>
     </body>
 </html>
