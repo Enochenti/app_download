@@ -42,5 +42,6 @@ class File_model extends CI_Model{
     function delete_file($id){
         $this->db->delete('file',array('id'=>$id));
     }
+    
 }
 ?>

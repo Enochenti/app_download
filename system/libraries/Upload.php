@@ -398,29 +398,32 @@ class CI_Upload {
 		if ( ! file_exists($path.$filename))
 		{
 			return $filename;
-		}
+		}else {  
+                     $this->set_error("Filename Conflict: There is already a file named \"$filename\".");  
+                     return false;  
+                }  
 
-		$filename = str_replace($this->file_ext, '', $filename);
-
-		$new_filename = '';
-		for ($i = 1; $i < 100; $i++)
-		{
-			if ( ! file_exists($path.$filename.$i.$this->file_ext))
-			{
-				$new_filename = $filename.$i.$this->file_ext;
-				break;
-			}
-		}
-
-		if ($new_filename == '')
-		{
-			$this->set_error('upload_bad_filename');
-			return FALSE;
-		}
-		else
-		{
-			return $new_filename;
-		}
+//		$filename = str_replace($this->file_ext, '', $filename);
+//
+//		$new_filename = '';
+//		for ($i = 1; $i < 100; $i++)
+//		{
+//			if ( ! file_exists($path.$filename.$i.$this->file_ext))
+//			{
+//				$new_filename = $filename.$i.$this->file_ext;
+//				break;
+//			}
+//		}
+//
+//		if ($new_filename == '')
+//		{
+//			$this->set_error('upload_bad_filename');
+//			return FALSE;
+//		}
+//		else
+//		{
+//			return $new_filename;
+//		}
 	}
 
 	// --------------------------------------------------------------------
