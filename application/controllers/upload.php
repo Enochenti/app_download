@@ -8,8 +8,9 @@ date_default_timezone_set('PRC');
 class Upload extends CI_Controller{
     function __construct(){
         parent::__construct();
+        $this->load->model('file_model');        
         $this->load->helper(array('form','url'));
-        $this->load->model('file_model');
+        $this->load->library('form_validation');
     }
     
     function index(){
@@ -24,16 +25,39 @@ class Upload extends CI_Controller{
         $config['overwrite']= FALSE;
         $config['max_size']='0';
         
-        $this->load->library('upload',$config);
+        $form_validate_config=array(
+//            array(
+//                'field'=>'userfile',
+//                'label'=>'userfile',
+//                'rules'=>'required'
+//            ),
+            array(
+                'field'=>'application_name',
+                'label'=>'application_name',
+                'rules'=>'required|trim|xss_clean'
+            )
+//            array(
+//                'field'=>'icon',
+//                'label'=>'icon',
+//                'rules'=>'required'
+//            )
+        );
         
-        if (!$this->upload->do_upload()){
-            $error=array('error'=>$this->upload->display_errors());
-            $this->load->view('upload_form',$error);
-        }else{
-            $message= $this->upload->data();
-            $data=array('upload_data'=>$message);
-            $this->file_model->insert_file($message['file_name'],$message['full_path']);
-            $this->load->view('upload_success',$data);
+        $this->load->library('upload',$config);
+        $this->form_validation->set_rules($form_validate_config);
+        if ($this->form_validation->run() == FALSE) {
+            $error = array('error' => $this->upload->display_errors());
+            $this->load->view('upload_form', $error);
+        } else {
+            if ((!$this->upload->do_upload())) {
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('upload_form', $error);
+            } else {
+                $message = $this->upload->data();
+                $data = array('upload_data' => $message);
+                $this->file_model->insert_file($message['file_name'], $message['full_path']);
+                $this->load->view('upload_success', $data);
+            }
         }
     }
     
