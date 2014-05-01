@@ -8,7 +8,7 @@
 class origin_model extends CI_Model{
     
     function __construct(){
-        parent::__contruct();
+        parent::__construct();
     }
     
     function insert($table_name,$data){
